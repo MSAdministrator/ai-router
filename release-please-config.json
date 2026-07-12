@@ -14,9 +14,7 @@
   "packages": {
     ".": {
       "release-type": "python",
-      "extra-files": [
-        "pyproject.toml"
-      ]
+      "version-file": "pyproject.toml"
     }
   }
 }
