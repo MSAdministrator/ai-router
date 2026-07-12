@@ -5,7 +5,7 @@ inputs:
   python-version:
     description: "Python version to use"
     required: true
-    default: "3.12"
+    default: "3.13"
   uv-version:
     description: "uv version to use"
     required: true
@@ -23,7 +23,7 @@ runs:
       with:
         version: ${{ inputs.uv-version }}
         enable-cache: 'true'
-        cache-suffix: ${{ matrix.python-version }}
+        cache-suffix: ${{ inputs.python-version }}
 
     - name: Install Python dependencies
       run: uv sync --frozen
