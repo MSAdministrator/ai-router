@@ -1,0 +1,22 @@
+
+models:
+  qwen3-27b:
+    name: qwen3.6:27b
+    provider: ollama
+    capabilities: [architecture, reasoning, security, coding]
+    max_context: 131072
+    priority: 100
+
+  devstral:
+    name: devstral
+    provider: ollama
+    capabilities: [repository, refactoring, tool_use, testing]
+    max_context: 32768
+    priority: 95
+
+  qwen-coder:
+    name: qwen2.5-coder
+    provider: ollama
+    capabilities: [autocomplete, snippets, shell]
+    max_context: 32768
+    priority: 90

@@ -1,0 +1,26 @@
+
+[project]
+name = "ai-router"
+version = "0.1.0"
+description = "ai-router is a python cli tool to route local models based on your local system specifications."
+dependencies = [
+    "pyyaml",
+    "python-fire",
+    "fire>=0.7.1",
+]
+
+[project.scripts]
+ai-router = "airouter.cli:main"
+
+[project.optional-dependencies]
+dev = ["pytest"]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.uv.build-backend]
+module-name = "airouter"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/airouter"]
