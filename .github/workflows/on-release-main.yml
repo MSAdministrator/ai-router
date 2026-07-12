@@ -4,36 +4,25 @@ on:
   release:
     types: [published]
 
+permissions:
+  contents: write
+
 jobs:
   publish:
     runs-on: ubuntu-latest
+    environment: release
     steps:
-      - uses: googleapis/release-please-action@v4
-        id: release
-        with:
-          release-type: python
-
       - name: Check out
         uses: actions/checkout@v4
-        if: ${{ steps.release.outputs.releases_created }}
 
       - name: Set up the environment
         uses: ./.github/actions/setup-python-env
-        if: ${{ steps.release.outputs.releases_created }}
-
-      - name: Download updated pyproject.toml
-        uses: actions/download-artifact@v4
-        with:
-          name: pyproject-toml
-        if: ${{ steps.release.outputs.releases_created }}
 
       - name: Build package
         run: uv build
-        if: ${{ steps.release.outputs.releases_created }}
 
       - name: Publish package distributions to PyPI
         uses: pypa/gh-action-pypi-publish@release/v1
-        if: ${{ steps.release.outputs.releases_created }}
 
   deploy-docs:
     needs: publish
@@ -46,4 +35,4 @@ jobs:
         uses: ./.github/actions/setup-python-env
 
       - name: Deploy documentation
-        run: uv run mkdocs gh-deploy --force
+        run: uv run --extra dev mkdocs gh-deploy --force
