@@ -12,11 +12,24 @@ jobs:
     runs-on: ubuntu-latest
     environment: release
     steps:
+      - uses: googleapis/release-please-action@v5
+        id: release
+        with:
+          release-type: python
+
       - name: Check out
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
+        if: ${{ steps.release.outputs.releases_created }}
 
       - name: Set up the environment
         uses: ./.github/actions/setup-python-env
+        if: ${{ steps.release.outputs.releases_created }}
+
+      - name: Download updated pyproject.toml
+        uses: actions/download-artifact@v8
+        with:
+          name: pyproject-toml
+        if: ${{ steps.release.outputs.releases_created }}
 
       - name: Build package
         run: uv build
@@ -29,7 +42,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Check out
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
 
       - name: Set up the environment
         uses: ./.github/actions/setup-python-env
