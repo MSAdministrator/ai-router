@@ -15,8 +15,12 @@ ai-router = "airouter.cli:main"
 
 [project.optional-dependencies]
 dev = [
+    "mkdocs",
+    "mkdocs-material",
+    "mkdocstrings[python]",
     "mypy",
     "pre-commit",
+    "pymdown-extensions",
     "pytest",
     "pytest-cov",
 ]
