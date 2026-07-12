@@ -27,22 +27,18 @@ class RouteAI:
 
     def models(self):
         return self.registry.installed_models()
-    
+
     def install_models(self):
         return self.registry.install_models()
 
     def explain(self, prompt: str):
         features = build_context(prompt)
         model = self.router.pick_model(features)
-        return {
-            "selected_model": model.name if model else None,
-            "features": features
-        }
+        return {"selected_model": model.name if model else None, "features": features}
 
     def doctor(self):
-        return {
-            "ollama_installed_models": self.registry.installed_models()
-        }
+        return {"ollama_installed_models": self.registry.installed_models()}
+
 
 def main():
     fire.Fire(RouteAI)

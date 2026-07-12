@@ -1,5 +1,5 @@
-
 from .models import ModelSpec
+
 
 def score_request(features, model: ModelSpec):
     score = 0

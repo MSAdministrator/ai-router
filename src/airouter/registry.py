@@ -14,7 +14,9 @@ class ModelRegistry:
         try:
             result = subprocess.run(["ollama", "list"], capture_output=True, text=True)
             lines = result.stdout.splitlines()[1:]
-            return [l.split()[0] for l in lines if l.strip()] or ["no models installed"]
+            return [line.split()[0] for line in lines if line.strip()] or [
+                "no models installed"
+            ]
         except Exception as e:
             return e
 
@@ -25,7 +27,7 @@ class ModelRegistry:
             if cfg["name"] in installed:
                 specs.append(ModelSpec(**cfg))
         return specs
-    
+
     def install_models(self):
         ensure_installed()
 

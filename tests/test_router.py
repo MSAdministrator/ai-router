@@ -1,4 +1,3 @@
-import pytest
 from unittest.mock import MagicMock
 from airouter.models import ModelSpec
 from airouter.router import Router
@@ -55,7 +54,9 @@ class TestPickModel:
         # Use a case that clearly favours the specialist.
         assert result.name in ("generic", "specialist")  # sanity check
         # Now make specialist clearly win
-        dominant = make_spec("dominant", capabilities=["coding", "security"], priority=50)
+        dominant = make_spec(
+            "dominant", capabilities=["coding", "security"], priority=50
+        )
         router2 = make_router([generic, dominant])
         result2 = router2.pick_model(make_features(capabilities=["coding", "security"]))
         assert result2.name == "dominant"
@@ -64,7 +65,9 @@ class TestPickModel:
         plain = make_spec("plain", capabilities=[], priority=70)
         repo = make_spec("repo-model", capabilities=["repository"], priority=50)
         router = make_router([plain, repo])
-        result = router.pick_model(make_features(repo_aware=True, capabilities=["repository"]))
+        result = router.pick_model(
+            make_features(repo_aware=True, capabilities=["repository"])
+        )
         # repo-model: 30 (cap) + 25 (repo_aware) + 50 (priority) = 105; plain: 70
         assert result.name == "repo-model"
 

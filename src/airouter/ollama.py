@@ -1,4 +1,3 @@
-
 import platform
 import shutil
 import subprocess
@@ -13,7 +12,7 @@ def ensure_installed() -> None:
 
     if not is_installed():
         raise OllamaError("Ollama is required but is not installed.")
-    
+
 
 def stream(prompt: str, model: str):
     ensure_installed()
@@ -25,12 +24,14 @@ def stream(prompt: str, model: str):
         text=True,
     )
 
+    if process.stdin is None or process.stdout is None:
+        raise OllamaError("Failed to open Ollama process streams")
+
     process.stdin.write(prompt)
     process.stdin.close()
 
     for line in process.stdout:
         yield line
-
 
 
 class OllamaError(RuntimeError):
@@ -93,7 +94,6 @@ def install_ollama(force: bool = False) -> bool:
             )
 
         elif system == "Windows":
-
             powershell = (
                 "winget install Ollama.Ollama "
                 "--accept-package-agreements "

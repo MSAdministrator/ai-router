@@ -1,4 +1,3 @@
-import pytest
 from airouter.models import ModelSpec
 from airouter.scorer import score_request
 
